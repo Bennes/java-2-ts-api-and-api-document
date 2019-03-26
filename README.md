@@ -5,6 +5,9 @@
 
 将日常工作中，有规则的springMVC java代码提取成typescript工程的api和生成api文档
 
+api文档如图：
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0325/180540_9991fe62_1515873.png "微信截图_20190325180456.png")
+
 此工程是基于nodejs的工程，可通过webpack压缩打包,
 
     1.解决的问题：用上此工具包后，没有问后端要过接口文档，最多问一句，你代码提交了吗？
