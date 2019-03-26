@@ -1,0 +1,13 @@
+.DS_Store
+node_modules/
+/dist/
+/demo/libs/
+/demo/conf.js
+/demo/local.js
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+package-lock.json
+/doc/api/

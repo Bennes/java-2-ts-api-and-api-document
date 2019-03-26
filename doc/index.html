@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html language="cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>接口文档</title>
+    <script src="./index.js"></script>
+    <style>
+      html,body{
+        background: white;
+        margin: 0;
+        padding: 0;
+      }
+      header{
+        line-height: 60px;
+        background: #006CBF;
+        font-size: 22px;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+        box-shadow:0 1px 4px black;
+        margin-bottom: 5px;
+      }
+      div.body{
+        width:1024px;
+        margin: auto;
+      }
+      div.block{
+        display: flex;
+        padding: 8px;
+        border-bottom: 1px solid #EEEEEE;
+      }
+      div.block > .name{
+        font-size: 42px;
+        font-weight: bold;
+        color: #AA0000;
+        width: 250px;
+        text-align: center;
+      }
+      div.block a.api-block{
+        color: #0097DB;
+        float: left;
+        font-size: 16px;
+        margin:10px;
+        text-align: left;
+        line-height: 32px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>API文档</header>
+    <div class="body" id="bodyInfo">
+      <!--<div class="block">
+        <div class="name">
+          sys
+        </div>
+        <div style="flex:1;">
+          <div class="api-block">User</div>
+        </div>
+      </div>-->
+    </div>
+  </body>
+</html>
+<script language="javascript">
+  window.onload=function(){
+    var result = [];
+    for(var i=0;i<data.length;i++){
+      result.push('<div class="block"><div class="name">');
+      result.push(data[i].name);
+      result.push('</div><div style="flex:1;">');
+      for(var j=0;j<data[i].list.length;j++){
+        result.push('<a class="api-block" href="./api/'+data[i].list[j]+'.html">'+data[i].list[j]+'</a>');
+      }
+      result.push('</div></div>');
+    }
+    document.getElementById('bodyInfo').innerHTML = result.join('');
+  }
+</script>

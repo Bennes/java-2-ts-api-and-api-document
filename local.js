@@ -1,0 +1,1 @@
+module.exports.javapath="./demo/java";

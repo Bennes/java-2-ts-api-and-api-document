@@ -1,0 +1,28 @@
+{
+  "name": "api_generation_tool",
+  "version": "1.0.0",
+  "description": "生成typescript和文档的工具",
+  "main": "conf.js",
+  "scripts": {
+    "build": "webpack --env=production --progress --config webpack.build.conf.js",
+    "aClass":"node ./demo/libs/DoAnalyClass",
+    "aController":"node ./demo/libs/DoAnalyController",
+    "aApi":"node ./demo/libs/DoApi2Type",
+    "aDoc":"node ./demo/libs/DoDoc",
+    "aMock":"node ./demo/libs/DoMock",
+    "api":"node ./demo/libs/DoAnalyClass&node ./demo/libs/DoAnalyController&node ./demo/libs/DoApi2Type&node ./demo/libs/DoDoc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/bennes001/java2api.git"
+  },
+  "author": "zengxiao",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
+    "ejs": "^2.6.1",
+    "mockjs": "^1.0.1-beta3",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  }
+}

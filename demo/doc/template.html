@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html language="cn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title><%=name%></title>
+  <style>
+    html,
+    body {
+      background: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      position: fixed;
+      top:0;
+      width:100%;
+      line-height: 60px;
+      background: #006CBF;
+      font-size: 22px;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 1px 4px black;
+      margin-bottom: 5px;
+    }
+
+    .api-list {
+      position: fixed;
+      left: 0;
+      top: 65px;
+      width: 350px;
+      border-right: 1px solid #eee;
+    }
+
+    .api-list li a {
+      line-height: 25px;
+      cursor: pointer;
+      color: #0097DB;
+      font-size: 16px;
+    }
+
+    .api-context {
+      margin:65px 0 0 351px;
+    }
+
+    .api-context table {
+      margin: 5px 2%;
+      width: 96%;
+      text-align: left;
+      border-collapse: collapse;
+      border-color: #eee;
+    }
+
+    .api-context table thead {
+      background: #0088CC;
+      color: white;
+    }
+
+    .api-context table td,
+    .api-context table th {
+      padding: 12px 15px;
+      border: 1px solid #eee;
+    }
+    table.back-data  thead,
+    table.back-data table thead
+    {
+      background:#F7818B;
+    }
+    span.open-btn{
+      cursor: pointer;
+    }
+  </style>
+  <script lang="javascript">
+    function closeParam(e){
+      const trDisplay = e.target.parentElement.parentElement.nextElementSibling.style.display;
+      if(trDisplay=='none'){
+        e.target.innerText='-';
+        e.target.parentElement.parentElement.nextElementSibling.style.display = '';
+      }else{
+        e.target.innerText='+';
+        e.target.parentElement.parentElement.nextElementSibling.style.display = 'none';
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <% function templateParams(data){%>
+    <tr>
+      <td><%-(data.detail!=null)?'<span class="open-btn" onclick="closeParam(event)">-</span>':''%></td>
+      <td><%=data.name%></td>
+      <td><%=data.type%></td>
+      <td><%=data.isRequired?'是':'否'%></td>
+      <td><%=data.note%></td>
+    </tr>
+    <%if(data.detail!=null){%>
+      <tr>
+        <td colspan="5">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:10px;">#</th>
+                <th style="width:200px;">参数名</th>
+                <th style="width:100px;">类型</th>
+                <th style="width:100px;">必填</th>
+                <th>说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%for(var l=0;l<data.detail.length;l++){%>
+                <%templateParams(data.detail[l])%>
+              <%}%>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    <%}%>
+  <%}%>
+  <% function templateReturn(data){%>
+    <tr>
+      <td><%-(data.detail!=null)?'<span class="open-btn" onclick="closeParam(event)">-</span>':''%></td>
+      <td><%=data.name%></td>
+      <td><%=data.type%></td>
+      <td><%=data.isReturnNotNull?'是':'否'%></td>
+      <td><%=data.note%></td>
+    </tr>
+    <%if(data.detail!=null){%>
+      <tr>
+        <td colspan="5">
+          <table>
+              <thead>
+                <tr>
+                  <th style="width:10px;">#</th>
+                  <th style="width:200px;">参数名</th>
+                  <th style="width:100px;">类型</th>
+                  <th style="width:100px;">必有值</th>
+                  <th>说明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%for(var idx=0;idx<data.detail.length;idx++){%>
+                  <%=templateReturn(data.detail[idx])%>
+                <%}%>
+              </tbody>
+            </table>
+        </td>
+      </tr>
+    <%}%>
+  <%}%>
+  <header><%=name%>文档[<%=date%>]
+    <a href="../index.html" style="float:right;font-size: 14px;color:white;margin-right: 30px;">返回API列表</a></header>
+  <div class="api-list">
+    <ol>
+      <%for(var idx=0;list!=null&&idx<list.length;idx++){%>
+      <li><a href="#<%=list[idx].url%>"><%=list[idx].name%>[<%=list[idx].action%>]</a></li>
+      <%}%>
+    </ol>
+  </div>
+  <div class="api-context">
+    <%for(var idx=0;list!=null&&idx<list.length;idx++){%>
+      <a name="<%=list[idx].url%>" style="display:block;height:65px;"></a>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="5">
+              <%=list[idx].name%>【<%=list[idx].action%>】入参
+              <span style="float:right;"><%=list[idx].url%></span>
+            </th>
+          </tr>
+          <tr>
+            <th style="width:10px;">#</th>
+            <th style="width:200px;">参数名</th>
+            <th style="width:100px;">类型</th>
+            <th style="width:100px;">必填</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%if(list[idx].params.length==0){%>
+            <tr>
+              <td colspan="5">无</td>
+            </tr>
+          <%}%>
+          <%for(var l=0;list!=null&&l<list[idx].params.length;l++){%>
+            <%templateParams(list[idx].params[l])%>
+          <%}%>
+        </tbody>
+      </table>
+      <table class="back-data">
+        <thead>
+          <tr>
+            <th colspan="5">返回</th>
+          </tr>
+          <tr>
+            <th style="width:10px;">#</th>
+            <th style="width:200px;">参数名</th>
+            <th style="width:100px;">类型</th>
+            <th style="width:100px;">必有值</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%for(var l=0;list!=null&&list[idx].result!=null&&l< list[idx].result.length;l++){%>
+            <%list[idx].result&&templateReturn(list[idx].result[l])%>
+          <%}%>
+          <!-- <tr>
+            <td></td>
+            <td>id</td>
+            <td>是</td>
+            <td>是</td>
+            <td>唯一标识</td>
+          </tr>
+          <tr>
+            <td>-</td>
+            <td>id</td>
+            <td>是</td>
+            <td>是</td>
+            <td>唯一标识</td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <table style="margin:5px;">
+                <thead style="background:#F7818B;">
+                  <tr>
+                    <th style="width:10px;">#</th>
+                    <th style="width:200px;">参数名</th>
+                    <th style="width:100px;">类型</th>
+                    <th style="width:100px;">非空</th>
+                    <th>说明</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td>id</td>
+                    <td>id</td>
+                    <td>是</td>
+                    <td>唯一标识</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+    <%}%>
+  </div>
+</body>
+</html>
